@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from 'react';
+import { useState } from "react";
 import ContactRow from "./ContactRow.jsx";
 import { useEffect } from "react";
 
@@ -11,8 +11,7 @@ const dummyContacts = [
 
 const api = "https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users";
 
-function ContactList({setSelectedContactId}) { 
-
+function ContactList({ setSelectedContactId }) {
   const [contacts, setContacts] = useState(dummyContacts);
   console.log("Contacts: ", contacts);
 
@@ -24,7 +23,6 @@ function ContactList({setSelectedContactId}) {
         console.log("Response: ", json);
 
         setContacts(json);
-        console.log("State: ", contacts);
       } catch (error) {
         console.log("Error in fetchContacts", error);
       }
@@ -32,27 +30,33 @@ function ContactList({setSelectedContactId}) {
     fetchContacts();
   }, []);
 
-  return ( 
-        <table>
-          <thead>
-            <tr>
-              <th colSpan="3">Contact List</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>Email</td>
-              <td>Phone</td>
-            </tr>
-            {
-              contacts.map((contact) => {
-                return <ContactRow key={contact.id} contact={contact} setSelectedContactId={setSelectedContactId} />;
-              })
-            }
-          </tbody>
-        </table>
-    ); 
+  console.log("State: ", contacts);
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th colSpan="3">Contact List</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Phone</td>
+        </tr>
+        {contacts.map((contact) => {
+          return (
+            <ContactRow
+              key={contact.id}
+              contact={contact}
+              setSelectedContactId={setSelectedContactId}
+            />
+          );
+        })}
+      </tbody>
+    </table>
+  );
 }
 
 export default ContactList;
